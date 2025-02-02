@@ -21,21 +21,34 @@ import test from "./test.mjs";
 // Write your function here
 
 function formatName(name) {
-    
-    if (typeof name !== "string") return null;
-  
-    name = name.trim();
-  
-    if (name === "") return "";
-    
-    if (/[^a-zA-Z\s]/.test(name)) return null;
-  
-    return name
-      .split(" ") 
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-      .join(" "); 
+  if (typeof name !== "string") {
+    return null;
   }
+
+  const trimmedName = name.trim();
+
+  if (trimmedName === "") {
+    return "";
+  }
+
+  const hasSpecialCharacters = /[^a-zA-Z\s]/.test(trimmedName);
+  if (hasSpecialCharacters) {
+    return null;
+  }
+
+  const words = trimmedName.split(" ");
+  const capitalizedWords = [];
   
+  for (let word of words) {
+    if (word) { 
+      const capitalizedWord = word[0].toUpperCase() + word.slice(1).toLowerCase();
+      capitalizedWords.push(capitalizedWord);
+    }
+  }
+
+  return capitalizedWords.join(" ");
+}
+
 
 //#endregion
 
